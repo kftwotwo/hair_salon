@@ -11,4 +11,10 @@ describe(Stylist) do
       expect(@joe.last_name).to eq 'Flower'
     end
   end
+
+  describe('#save') do
+    it "will save into the database" do
+      expect(@joe.save).to be true
+    end
+  end
 end
