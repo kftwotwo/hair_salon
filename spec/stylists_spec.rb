@@ -23,5 +23,13 @@ describe(Stylist) do
       expect(Stylist.all).to be_an_instance_of(PG::Result)
     end
   end
-  
+
+  describe('#save') do
+    it "will save into the database" do
+      @joe.save
+      expect(@joe.delete).to be true
+    end
+  end
+
+
 end
