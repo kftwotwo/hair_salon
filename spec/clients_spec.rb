@@ -25,14 +25,14 @@ describe(Client) do
    end
 
   describe('.find') do
-    it('finds a stylist in the database, if it exists') do
+    it('finds a stylist in the database') do
       @kevin.save
       expect(Client.find(@kevin.id).first).to eq ["id", "1"]
     end
   end
 
   describe('#delete') do
-    it "will save  then delete from database" do
+    it "will save then delete from database" do
       @kevin.save
       expect(@kevin.delete).to be true
     end

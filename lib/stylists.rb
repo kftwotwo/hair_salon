@@ -49,4 +49,8 @@ class Stylist
     @last_name = attrs[:last_name]
     DB.exec("UPDATE stylists SET first_name = '#{@first_name}', last_name = '#{@last_name}' WHERE id = #{id};")
   end
+
+  def client
+    clients = DB.exec("SELECT * FROM clients WHERE stylist_id = #{self.id};")
+  end
 end
