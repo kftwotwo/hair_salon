@@ -17,4 +17,11 @@ describe(Stylist) do
       expect(@joe.save).to be true
     end
   end
+
+  describe('.all') do
+    it "will show everything in the database" do
+      expect(Stylist.all).to be_an_instance_of(PG::Result)
+    end
+  end
+  
 end

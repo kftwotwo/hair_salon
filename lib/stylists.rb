@@ -7,6 +7,13 @@ class Stylist
     @last_name = attrs[:last_name]
   end
 
+  class << self
+    def all
+      DB.exec('SELECT * FROM stylists')
+    end
+
+  end
+
   def save
     begin
       DB.exec("INSERT INTO stylists (first_name, last_name) VALUES ('#{@first_name}', '#{@last_name}');")
