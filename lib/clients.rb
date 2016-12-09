@@ -7,5 +7,12 @@ class Client
     @id = attrs["id"].to_i
   end
 
+  class << self
+    def all
+      DB.exec("SELECT * FROM clients;").map do |clients|
+        Stylist.new(clients)
+      end
+    end
 
+  end
 end

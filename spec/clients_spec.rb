@@ -12,4 +12,10 @@ describe(Client) do
     end
   end
 
+  describe('.all') do
+    it('starts with an empty database') do
+      expect(Stylist.all).to be_an Array
+    end
+  end
+  
 end
