@@ -17,5 +17,11 @@ describe(Client) do
       expect(Stylist.all).to be_an Array
     end
   end
-  
+
+  describe('#save') do
+    it "will save into the database" do
+      expect(@joe.save).to be true
+    end
+   end
+
 end
