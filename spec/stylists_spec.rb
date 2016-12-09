@@ -32,13 +32,13 @@ describe(Stylist) do
     end
   end
 
-  # describe("#==") do
-  #   it("is the same stylist if it has the same first_name") do
-  #     @joe.save
-  #     @joe2.save
-  #     expect(@joe).to eq(@joe2)
-  #   end
-  # end
+  describe("#==") do
+    it("is same stylist if it has the same first_name and id") do
+      @joe.save
+      @joe2.save
+      expect(@joe).to eq(@joe)
+    end
+  end
 
 
 

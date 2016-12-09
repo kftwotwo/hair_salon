@@ -19,9 +19,9 @@ class Stylist
       end
     end
 
-    # def ==(other)
-    #   self.first_name().==(other.first_name).&(self.id().==(other.id()))
-    # end
+    def ==(other)
+      self.first_name().==(other.first_name).&(self.id().==(other.id()))
+    end
   end
 
   def save
