@@ -24,4 +24,11 @@ describe(Client) do
     end
    end
 
+  describe('.find') do
+    it('finds a stylist in the database, if it exists') do
+      @joe.save
+      expect(Client.find(@joe.id).first).to eq ["id", "1"]
+    end
+  end
+
 end

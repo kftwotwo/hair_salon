@@ -14,7 +14,9 @@ class Client
       end
     end
 
-
+    def find(id)
+      DB.exec("SELECT * FROM clients WHERE id = #{id};").first
+    end
   end #end of singletons
 
   def save
@@ -27,6 +29,5 @@ class Client
       false
     end
   end
-
 
 end
