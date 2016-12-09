@@ -9,18 +9,25 @@ class Stylist
 
   class << self
     def all
-      DB.exec('SELECT * FROM stylists')
+      returned_stylists = DB.exec('SELECT * FROM stylists')
+      stylists = []
+      returned_stylists.each do |stylist|
+        first_name = stylist['first_name']
+        last_name = stylist['last_name']
+        id = stylist['id'].to_i()
+        stylists.push(Stylist.new({:first_name => first_name, :id => id}))
+      end
     end
 
-    def find(last_name)
-      DB.exec("SELECT * FROM stylists WHERE last_name = '#{@last_name}';")
-    end
-
+    # def ==(other)
+    #   self.first_name().==(other.first_name).&(self.id().==(other.id()))
+    # end
   end
 
   def save
     begin
-      DB.exec("INSERT INTO stylists (first_name, last_name) VALUES ('#{@first_name}', '#{@last_name}');")
+      saved = DB.exec("INSERT INTO stylists (first_name, last_name) VALUES ('#{@first_name}', '#{@last_name}') RETURNING id;")
+      @id = saved.first['id'].to_i
       true
     rescue StandardError => e
       puts e.message
@@ -37,4 +44,6 @@ class Stylist
       false
     end
   end
+
+
 end
