@@ -30,4 +30,19 @@ class Client
     end
   end
 
+  def delete
+    begin
+      DB.exec("DELETE FROM clients WHERE id = #{@id};")
+      true
+    rescue StandardError => e
+      puts e.message
+      false
+    end
+  end
+
+  def update(attrs)
+    @first_name = attrs[:first_name]
+    @last_name = attrs[:last_name]
+    DB.exec("UPDATE clients SET first_name = '#{@first_name}', last_name = '#{@last_name}' WHERE id = #{id};")
+  end
 end

@@ -2,13 +2,13 @@ require('spec_helper')
 
 describe(Client) do
   before :each do
-    @joe = Client.new({:first_name => "Kevin", :last_name => 'Finley'})
+    @kevin = Client.new({:first_name => "Kevin", :last_name => 'Finley'})
   end
 
   describe('#initialize') do
     it "will initialize id, first_name, and last_name" do
-      expect(@joe.first_name).to eq 'Kevin'
-      expect(@joe.last_name).to eq 'Finley'
+      expect(@kevin.first_name).to eq 'Kevin'
+      expect(@kevin.last_name).to eq 'Finley'
     end
   end
 
@@ -20,15 +20,31 @@ describe(Client) do
 
   describe('#save') do
     it "will save into the database" do
-      expect(@joe.save).to be true
+      expect(@kevin.save).to be true
     end
    end
 
   describe('.find') do
     it('finds a stylist in the database, if it exists') do
-      @joe.save
-      expect(Client.find(@joe.id).first).to eq ["id", "1"]
+      @kevin.save
+      expect(Client.find(@kevin.id).first).to eq ["id", "1"]
     end
   end
 
+  describe('#delete') do
+    it "will save  then delete from database" do
+      @kevin.save
+      expect(@kevin.delete).to be true
+    end
+  end
+
+  describe('#update') do
+    it('updates the data in the database') do
+      kevin = Stylist.new({:first_name => "Kevin", :last_name => 'Finley'})
+      kevin.save
+      kevin.update({:first_name => "Andrew", :last_name => 'Two-Two'})
+      expect(kevin.first_name).to eq "Andrew"
+      expect(kevin.last_name).to eq "Two-Two"
+    end
+  end
 end
