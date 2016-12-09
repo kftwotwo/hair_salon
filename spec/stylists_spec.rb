@@ -2,8 +2,7 @@ require('spec_helper')
 
 describe(Stylist) do
   before :each do
-    @joe = Stylist.new({:first_name => 'Joe', :last_name => "Flower", :id => nil})
-    @joe2 = Stylist.new({:first_name => 'Joe', :last_name => "Flower", :id => nil})
+    @joe = Stylist.new({:first_name => "Joe", :last_name => 'Flower'})
   end
 
   describe('#initialize') do
@@ -13,37 +12,43 @@ describe(Stylist) do
     end
   end
 
+
+  describe('.all') do
+    it('starts with an empty database') do
+      expect(Stylist.all).to be_an Array
+    end
+  end
+
   describe('#save') do
     it "will save into the database" do
       expect(@joe.save).to be true
     end
-  end
+   end
 
-  describe('.all') do
-    it "will show everything in the database" do
-      expect(Stylist.all).to be_an_instance_of(PG::Result)
+   describe('#delete') do
+     it "will save  then delete from database" do
+       @joe.save
+       expect(@joe.delete).to be true
+     end
     end
-  end
 
-  describe('#save') do
-    it "will save into the database" do
+  describe('.find') do
+    it('finds a stylist in the database, if it exists') do
       @joe.save
-      expect(@joe.delete).to be true
+      expect(Stylist.find(@joe.id).first).to eq ["id", "1"]
     end
   end
 
-  describe("#==") do
-    it("is same stylist if it has the same first_name and id") do
-      @joe.save
-      @joe2.save
-      expect(@joe).to eq(@joe)
+  describe('#update') do
+    it('updates the data in the database') do
+      joe = Stylist.new({:first_name => "Joe", :last_name => 'Flower'})
+      joe.save
+      joe.update({:first_name => "Jamie", :last_name => 'Table'})
+      expect(joe.first_name).to eq "Jamie"
+      expect(joe.last_name).to eq "Table"
     end
   end
-
-
-
 end
-
 
 
 # SELECT * FROM clients

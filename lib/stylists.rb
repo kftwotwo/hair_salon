@@ -1,27 +1,26 @@
 class Stylist
-  attr_reader(:id, :first_name, :last_name)
+  attr_reader :id, :first_name, :last_name
 
   def initialize(attrs)
-    @id = attrs[:id]
     @first_name = attrs[:first_name]
     @last_name = attrs[:last_name]
+    @id = attrs["id"].to_i
   end
 
   class << self
     def all
-      returned_stylists = DB.exec('SELECT * FROM stylists')
-      stylists = []
-      returned_stylists.each do |stylist|
-        first_name = stylist['first_name']
-        last_name = stylist['last_name']
-        id = stylist['id'].to_i()
-        stylists.push(Stylist.new({:first_name => first_name, :id => id}))
+      DB.exec("SELECT * FROM stylists;").map do |data|
+        Stylist.new(data)
       end
     end
 
-    def ==(other)
-      self.first_name().==(other.first_name).&(self.id().==(other.id()))
+    def find(id)
+      DB.exec("SELECT * FROM stylists WHERE id = #{id};").first
     end
+  end #end of singletons
+
+  def ==(other)
+    @last_name == other.last_name && @id == other.id
   end
 
   def save
@@ -37,7 +36,7 @@ class Stylist
 
   def delete
     begin
-      DB.exec("DELETE FROM stylists WHERE last_name = '#{@last_name}'")
+      DB.exec("DELETE FROM stylists WHERE id = #{@id};")
       true
     rescue StandardError => e
       puts e.message
@@ -45,5 +44,9 @@ class Stylist
     end
   end
 
-
+  def update(attrs)
+    @first_name = attrs[:first_name]
+    @last_name = attrs[:last_name]
+    DB.exec("UPDATE stylists SET first_name = '#{@first_name}', last_name = '#{@last_name}' WHERE id = #{id};")
+  end
 end
