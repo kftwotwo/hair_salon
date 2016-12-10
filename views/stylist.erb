@@ -1,0 +1,26 @@
+<h1><%= @stylist.first_name() %> <%= @stylist.last_name() %></h1><br>
+<% if @stylist.clients().any?() %>
+  <h2>Here are <%= @stylist.first_name() %> <%= @stylist.last_name() %> clients:</h2>
+  <ul>
+    <% @stylist.clients().each() do |client| %>
+      <li><a href="/clients/<%= client.id() %>"><%= client.last_name() %>, <%= client.first_name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>None</p>
+<% end %>
+
+<h2>Add a Client:</h2>
+<form action="/clients" method="post">
+  <input id="stylist_id" type="hidden" name="stylist_id" value="<%= @stylist.id() %>">
+  <input id="first_name" name="first_name" type="text"><br>
+  <input id="last_name" name="last_name" type="text"><br>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
+<a href="/stylists/<%= @stylist.id() %>/edit"><button class="btn btn-primary">Edit <%= @stylist.first_name() %>, <%= @stylist.last_name() %></button></a>
+<form action="/stylists/<%= @stylist.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-primary">Delete <%= @stylist.first_name() %>, <%= @stylist.last_name() %></button>
+</form>
+<a href="/"><button class="btn btn-primary">Home</button></a><br>
+<a href="/stylists"><button class="btn btn-primary">New Stylsit</button></a><br>

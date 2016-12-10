@@ -1,0 +1,11 @@
+<% if @clients.any?() %>
+  <ul>
+    <h1><em>All Clients:</em></h1>
+    <% @clients.each() do |client| %>
+      <li><a href="/clients/<%= client.id() %>"><button type="button" class="btn btn-primary"><%= client.first_name() %>, <%= client.last_name() %></button></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Closed</p>
+<% end %>
+<a href="/"><button class="btn btn-primary">Back</button></a>

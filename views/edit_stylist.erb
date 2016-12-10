@@ -1,0 +1,7 @@
+<h1>Update <%= @stylist.first_name() %> <%= @stylist.last_name() %></h1>
+<form action="/stylists/<%= @stylist.id() %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="new_first_name">
+  <input type="text" name="new_last_name">
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
