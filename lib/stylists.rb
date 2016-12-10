@@ -54,7 +54,8 @@ class Stylist
   end
 
   def update(attrs)
-    @name = attrs[:name]
+    @first_name = attrs[:first_name]
+    @last_name = attrs[:last_name]
     @id = self.id()
     DB.exec("UPDATE stylists SET first_name ='#{@first_name}', last_name ='#{@last_name}' WHERE id = #{@id};")
   end
@@ -64,12 +65,3 @@ class Stylist
     DB.exec("DELETE FROM clients WHERE stylist_id = #{self.id()};")
   end
 end
-
-#
-#   def update(attrs)
-#     @first_name = attrs[:first_name]
-#     @last_name = attrs[:last_name]
-#     DB.exec("UPDATE stylists SET first_name = '#{@first_name}', last_name = '#{@last_name}' WHERE id = #{id};")
-#   end
-#
-# end
