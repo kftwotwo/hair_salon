@@ -1,48 +1,57 @@
 class Client
-  attr_reader :id, :first_name, :last_name
+  attr_reader :first_name, :last_name, :stylist_id, :id
 
   def initialize(attrs)
     @first_name = attrs[:first_name]
     @last_name = attrs[:last_name]
-    @id = attrs["id"].to_i
+    @stylist_id = attrs[:stylist_id]
+    @id = attrs[:id]
   end
 
   class << self
     def all
-      DB.exec("SELECT * FROM clients;").map do |clients|
-        Stylist.new(clients)
+      returned_clients = DB.exec('SELECT * FROM clients;')
+      clients = []
+      returned_clients.each() do |client|
+        first_name = client['first_name']
+        last_name = client['last_name']
+        stylist_id = client['stylist_id'].to_i()
+        id = client['id'].to_i()
+        clients.push(Client.new({:first_name => first_name, :last_name => last_name, :stylist_id => stylist_id, :id => id}))
       end
+      clients
     end
 
     def find(id)
-      DB.exec("SELECT * FROM clients WHERE id = #{id};").first
+      found_client = nil
+      Client.all().each() do |client|
+        if client.id() == id
+          found_client = client
+        end
+      end
+      found_client
     end
   end #end of singletons
 
+  def ==(another_client)
+    self.first_name() == another_client.first_name() && self.last_name() == another_client.last_name() && self.id() == another_client.id()
+  end
+
   def save
-    begin
-      saved = DB.exec("INSERT INTO clients (first_name, last_name) VALUES ('#{@first_name}', '#{@last_name}') RETURNING id;")
-      @id = saved.first['id'].to_i
-      true
-    rescue StandardError => e
-      puts e.message
-      false
-    end
+    result = DB.exec("INSERT INTO clients (first_name, last_name, stylist_id) VALUES ('#{@first_name}', '#{@last_name}', #{@stylist_id}) RETURNING id;")
+    @id = result.first().fetch('id').to_i
+  end
+
+  def update(attributes)
+    @first_name = attributes.fetch(:first_name)
+    @last_name = attributes.fetch(:last_name)
+    @stylist_id = self.stylist_id()
+    @id = self.id()
+    DB.exec("UPDATE clients SET first_name ='#{@first_name}' WHERE id = #{@id};")
+    DB.exec("UPDATE clients SET last_name ='#{@last_name}' WHERE id = #{@id};")
   end
 
   def delete
-    begin
-      DB.exec("DELETE FROM clients WHERE id = #{@id};")
-      true
-    rescue StandardError => e
-      puts e.message
-      false
-    end
-  end
-
-  def update(attrs)
-    @first_name = attrs[:first_name]
-    @last_name = attrs[:last_name]
-    DB.exec("UPDATE clients SET first_name = '#{@first_name}', last_name = '#{@last_name}' WHERE id = #{id};")
+    DB.exec("DELETE FROM clients WHERE id = #{self.id()};")
   end
 end
