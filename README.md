@@ -1,8 +1,8 @@
 # Hair Salon
 
-#### A manger can look at this and view clients and Stylist, 2016-12-9
+A manger can look at this and view clients and Stylist, 2016-12-9
 
-#### By [Kevin Finley](http://www.kfinley.com)
+By [Kevin Finley](http://www.kfinley.com)
 
 ## Description
 
@@ -10,11 +10,8 @@ You can add or delete or edit stylists and clients and enter first and last name
 
 ## Setup/Installation Requirements
 
-Go to github and clone the repository `https://github.com/kftwotwo/hair_salon.git`.  
-Once the repository is cloned:
+Clone the repository and `cd` into your directory :
 ```
-$ git clone hair_salon
-$ cd hair_salon
 $ bundle install
 ```
 Now enter the following psql commands:
@@ -28,7 +25,7 @@ Now enter the following psql commands:
 
 ## Known Bugs
 
-If you notice any bugs or problems you can fill out an issue [here](http://www.github.com/kftwotwo/hair_salon/issue) or you can clone the project and work on it yourself!
+If you notice any bugs or problems you can fill out an issue [here](https://www.github.com/kftwotwo/hair_salon/issue) or feel free to do a pull request [here](https://www.github.com/kftwotwo/{project}/pulls)!
 
 ## Contact details
 Here is my email kf.two.two@gmail.com
@@ -36,6 +33,8 @@ Here is my email kf.two.two@gmail.com
 ## Contribute
 
 Issue Tracker: https://github.com/kftwotwo/hair_salon/issues
+
+Pull Request: https://github.com/kftwotwo/{project}/pulls
 
 Source Code: https://github.com/kftwotwo/hair_salon
 
